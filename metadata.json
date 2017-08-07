@@ -1,0 +1,14 @@
+{
+  "name": "puppet-tfenv",
+  "version": "0.0.1",
+  "author": "Sergiy Kulanov",
+  "summary": "Install and configure tfenv tool",
+  "license": "Apache 2.0",
+  "source": "https://github.com/SergK/puppet-tfenv",
+  "project_page": "https://github.com/SergK/puppet-tfenv",
+  "issues_url": "https://github.com/SergK/puppet-tfenv/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
