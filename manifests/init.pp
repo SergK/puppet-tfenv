@@ -11,6 +11,7 @@ class tfenv(
 
   $packages = [
     git,
+    unzip
   ]
 
   package { $packages:
@@ -45,12 +46,22 @@ class tfenv(
     ],
   }
   -> vcsrepo { $install_dir:
-    ensure   => latest,
+    ensure   => present,
     provider => 'git',
     revision => $tfenv_revision,
     source   => $tfenv_git_repo,
     user     => $tfenv_user,
     group    => $tfenv_group,
+  }
+
+  file { '/usr/local/bin/tfenv':
+    ensure => 'link',
+    target => "${install_dir}/bin/tfenv",
+  }
+
+  file { '/usr/local/bin/terraform':
+    ensure => 'link',
+    target => "${install_dir}/bin/terraform",
   }
 
 }
