@@ -1,12 +1,13 @@
 # == Class: tfenv
 #
 class tfenv(
-  $install_dir    = $::tfenv::params::install_dir,
-  $tfenv_git_repo = $::tfenv::params::tfenv_git_repo,
-  $tfenv_revision = $::tfenv::params::tfenv_revision,
-  $tfenv_user     = $::tfenv::params::tfenv_user,
-  $tfenv_group    = $::tfenv::params::tfenv_group,
-  $manage_user    = true,
+  $install_dir          = $::tfenv::params::install_dir,
+  $tfenv_git_repo       = $::tfenv::params::tfenv_git_repo,
+  $tfenv_revision       = $::tfenv::params::tfenv_revision,
+  $tfenv_user           = $::tfenv::params::tfenv_user,
+  $tfenv_group          = $::tfenv::params::tfenv_group,
+  Boolean $manage_user  = true,
+  Boolean $manage_group = true,
 ) inherits tfenv::params{
 
   $packages = [
@@ -18,20 +19,20 @@ class tfenv(
     ensure => latest,
   }
 
-  if $manage_user == true {
-    group { $tfenv_group:
-      ensure => 'present',
-      gid    => '1010',
-    }
-
+  if $manage_user {
     user { $tfenv_user:
       ensure  => present,
-      comment => 'User to run cloudwatch_importer',
+      comment => 'User to run tfenv',
       home    => $install_dir,
       shell   => '/usr/sbin/nologin',
-      uid     => '1010',
       gid     => $tfenv_group,
       require => Group[$tfenv_group],
+      before  => File[$install_dir],
+    }
+  }
+  if $manage_group {
+    group { $tfenv_group:
+      ensure => 'present',
     }
   }
 
@@ -40,14 +41,11 @@ class tfenv(
     owner   => $tfenv_user,
     group   => $tfenv_group,
     mode    => '0755',
-    require => [
-      User[$tfenv_user],
-      Package[$packages],
-    ],
+    require => Package[$packages],
   }
   -> vcsrepo { $install_dir:
     ensure   => present,
-    provider => 'git',
+    provider => git,
     revision => $tfenv_revision,
     source   => $tfenv_git_repo,
     user     => $tfenv_user,
