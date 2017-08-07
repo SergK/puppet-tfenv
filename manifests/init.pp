@@ -1,41 +1,56 @@
 # == Class: tfenv
 #
-# Full description of class tfenv here.
-#
-# === Parameters
-#
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
-#
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
-#
-# === Examples
-#
-#  class { 'tfenv':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
-#
-# === Authors
-#
-# Author Name <author@domain.com>
-#
-# === Copyright
-#
-# Copyright 2017 Your name here, unless otherwise noted.
-#
-class tfenv {
+class tfenv(
+  $install_dir    = $::tfenv::params::install_dir,
+  $tfenv_git_repo = $::tfenv::params::tfenv_git_repo,
+  $tfenv_revision = $::tfenv::params::tfenv_revision,
+  $tfenv_user     = $::tfenv::params::tfenv_user,
+  $tfenv_group    = $::tfenv::params::tfenv_group,
+  $manage_user    = true,
+) inherits tfenv::params{
 
+  $packages = [
+    git,
+  ]
+
+  package { $packages:
+    ensure => latest,
+  }
+
+  if $manage_user == true {
+    group { $tfenv_group:
+      ensure => 'present',
+      gid    => '1010',
+    }
+
+    user { $tfenv_user:
+      ensure  => present,
+      comment => 'User to run cloudwatch_importer',
+      home    => $install_dir,
+      shell   => '/usr/sbin/nologin',
+      uid     => '1010',
+      gid     => $tfenv_group,
+      require => Group[$tfenv_group],
+    }
+  }
+
+  file { $install_dir:
+    ensure  => directory,
+    owner   => $tfenv_user,
+    group   => $tfenv_group,
+    mode    => '0755',
+    require => [
+      User[$tfenv_user],
+      Package[$packages],
+    ],
+  }
+  -> vcsrepo { $install_dir:
+    ensure   => latest,
+    provider => 'git',
+    revision => $tfenv_revision,
+    source   => $tfenv_git_repo,
+    user     => $tfenv_user,
+    group    => $tfenv_group,
+  }
 
 }
