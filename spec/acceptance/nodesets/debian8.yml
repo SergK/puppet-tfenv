@@ -1,6 +1,6 @@
 ---
 CONFIG:
-  log_level: notice
+  log_level: debug
   type: aio
 HOSTS:
   debian8:
@@ -13,7 +13,6 @@ HOSTS:
          apt-get install -y --no-install-recommends net-tools wget locales locales-all &&
          echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen'
     hypervisor: docker
-    docker_preserve_image: true
     image: "debian:8"
     platform: debian-8-amd64
     roles:

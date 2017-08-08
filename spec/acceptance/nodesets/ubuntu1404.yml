@@ -1,0 +1,16 @@
+---
+CONFIG:
+  log_level: notice
+  type: aio
+HOSTS:
+  ubuntu1404:
+    docker_image_commands:
+      - 'apt-get update &&
+         apt-get install -y --no-install-recommends net-tools wget locales systemd &&
+         echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen en_US.UTF-8 &&
+         rm /bin/systemctl && ln -s /bin/true /bin/systemctl'
+    hypervisor: docker
+    image: "ubuntu:14.04"
+    platform: ubuntu-14.04-x64
+    roles:
+      - tfenv

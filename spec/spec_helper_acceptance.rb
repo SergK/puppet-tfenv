@@ -17,6 +17,7 @@ RSpec.configure do |c|
 
   c.before :suite do
     hosts.each do |host|
+      host.add_env_var('DEBIAN_FRONTEND', 'noninteractive')
       on host, 'mkdir -p /tmp/terraform-0.8.8'
       on host, 'echo 0.8.8 > /tmp/terraform-0.8.8/.terraform-version'
     end
