@@ -25,15 +25,15 @@ describe 'tfenv class' do
     end
   end
 
-  context 'do not create user' do
+  context 'do not create group but manage user' do
     it 'should work with no errors' do
       shell("rm -rf /opt/tfenv")
       shell("rm -rf /usr/local/bin/t*")
       pp = <<-EOS
         class { '::tfenv':
-          manage_user  => false,
+          manage_user  => true,
           manage_group => false,
-          tfenv_user   => root,
+          tfenv_user   => jenkins,
           tfenv_group  => root,
         }
 
@@ -46,7 +46,7 @@ describe 'tfenv class' do
 
     describe file("/opt/tfenv/.git") do
       it { is_expected.to be_directory }
-      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_owned_by 'jenkins' }
     end
 
     describe file("/opt/tfenv/.git/HEAD") do

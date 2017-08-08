@@ -26,13 +26,13 @@ class tfenv(
       home    => $install_dir,
       shell   => '/usr/sbin/nologin',
       gid     => $tfenv_group,
-      require => Group[$tfenv_group],
       before  => File[$install_dir],
     }
   }
   if $manage_group {
     group { $tfenv_group:
-      ensure => 'present',
+      ensure => present,
+      before => File[$install_dir],
     }
   }
 
@@ -53,12 +53,12 @@ class tfenv(
   }
 
   file { '/usr/local/bin/tfenv':
-    ensure => 'link',
+    ensure => link,
     target => "${install_dir}/bin/tfenv",
   }
 
   file { '/usr/local/bin/terraform':
-    ensure => 'link',
+    ensure => link,
     target => "${install_dir}/bin/terraform",
   }
 
