@@ -1,6 +1,4 @@
-RSpec.configure do |config|
-  config.raise_errors_for_deprecations!
-end
+RSpec.configure(&:raise_errors_for_deprecations!)
 
 require 'rspec-puppet'
 require 'puppetlabs_spec_helper/module_spec_helper'
@@ -19,5 +17,4 @@ RSpec.configure do |c|
   c.after(:suite) do
     exit(1) if RSpec::Puppet::Coverage.report!(100)
   end
-
 end
