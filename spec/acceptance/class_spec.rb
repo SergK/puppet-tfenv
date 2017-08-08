@@ -42,6 +42,8 @@ describe 'tfenv class' do
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
       apply_manifest(pp, :catch_changes => true)
+      # test terraform installation version 0.10.0
+      shell("tfenv install 0.10.0")
     end
 
     describe file("/opt/tfenv/.git") do
@@ -52,6 +54,29 @@ describe 'tfenv class' do
     describe file("/opt/tfenv/.git/HEAD") do
       it { is_expected.to contain 'ad823dbbad78f442b29a686812601bafa48e27c1' }
     end
+    describe file("/opt/tfenv/version") do
+      it { is_expected.to contain '0.10.0' }
+    end
   end
+
+ context 'test tfenv functionality' do
+   it 'should install version 0.8.8' do
+     shell("cd /tmp/terraform-0.8.8; tfenv install")
+   end
+
+   TF_LIST = <<EOS
+0.10.0
+0.8.8
+EOS
+
+   it 'should list all installed terraform versions' do
+     expect(shell("tfenv list").stdout).to eq(TF_LIST)
+   end
+
+   describe file("/opt/tfenv/version") do
+     it { is_expected.to contain '0.8.8' }
+   end
+
+ end
 
 end

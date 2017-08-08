@@ -10,3 +10,16 @@ install_module_on(hosts)
 install_module_dependencies_on(hosts)
 
 UNSUPPORTED_PLATFORMS = ['RedHat','Suse','windows','AIX','Solaris']
+
+RSpec.configure do |c|
+  # Readable test descriptions
+  c.formatter = :documentation
+
+  c.before :suite do
+    hosts.each do |host|
+      on host, "mkdir -p /tmp/terraform-0.8.8"
+      on host, "echo 0.8.8 > /tmp/terraform-0.8.8/.terraform-version"
+    end
+
+  end
+end
