@@ -1,3 +1,7 @@
+RSpec.configure do |config|
+  config.raise_errors_for_deprecations!
+end
+
 require 'rspec-puppet'
 require 'puppetlabs_spec_helper/module_spec_helper'
 require 'simplecov'
@@ -11,9 +15,6 @@ RSpec.configure do |c|
   c.manifest_dir = File.join(fixture_path, 'manifests')
   c.environmentpath = File.join(Dir.pwd, 'spec')
   c.tty = true
-  # c.mock_with :rspec
-  c.raise_errors_for_deprecations!
-
 
   c.after(:suite) do
     exit(1) if RSpec::Puppet::Coverage.report!(100)

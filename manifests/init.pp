@@ -53,13 +53,15 @@ class tfenv(
   }
 
   file { '/usr/local/bin/tfenv':
-    ensure => link,
-    target => "${install_dir}/bin/tfenv",
+    ensure  => link,
+    target  => "${install_dir}/bin/tfenv",
+    require => Vcsrepo[$install_dir],
   }
 
   file { '/usr/local/bin/terraform':
-    ensure => link,
-    target => "${install_dir}/bin/terraform",
+    ensure  => link,
+    target  => "${install_dir}/bin/terraform",
+    require => Vcsrepo[$install_dir],
   }
 
 }
