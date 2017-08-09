@@ -1,11 +1,15 @@
 # Change Log
 
-## [0.1.0](https://github.com/SergK/puppet-tfenv/tree/0.1.0) (2017-08-09)
-[Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.0.1...0.1.0)
+## [0.1.1](https://github.com/SergK/puppet-tfenv/tree/0.1.1) (2017-08-09)
+[Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.0.1...0.1.1)
 
 **Merged pull requests:**
 
+- Update module metadata [\#2](https://github.com/SergK/puppet-tfenv/pull/2) ([SergK](https://github.com/SergK))
 - Update documentation [\#1](https://github.com/SergK/puppet-tfenv/pull/1) ([SergK](https://github.com/SergK))
+
+## [0.0.1](https://github.com/SergK/puppet-tfenv/tree/0.0.1) (2017-08-08)
+[Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.1.0...0.0.1)
 
 
 
