@@ -1,6 +1,6 @@
 {
-  "name": "puppet-tfenv",
-  "version": "0.0.1",
+  "name": "sergk-tfenv",
+  "version": "0.1.0",
   "author": "Sergiy Kulanov",
   "summary": "Install and configure tfenv tool",
   "license": "Apache-2.0",

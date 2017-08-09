@@ -2,10 +2,14 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.8']
 
+# github_changelog_generator must be 1.13.0 for ruby < 2.2.2
+changelog_generator_version = RUBY_VERSION < '2.2.2' ? '~> 1.13.0' : '>= 1.13.0'
+
 group :test do
   gem 'coveralls',              require: false
   gem 'facter',                 '>= 1.7.0'
   gem 'git',                    '1.3.0'
+  gem 'github_changelog_generator', changelog_generator_version
   gem 'hiera',                  require: false
   gem 'httparty',               require: false
   gem 'metadata-json-lint',     require: false
