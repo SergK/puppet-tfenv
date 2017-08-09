@@ -1,4 +1,5 @@
 # tfenv
+![https://travis-ci.org/SergK/puppet-tfenv.svg?branch=master](https://travis-ci.org/SergK/puppet-tfenv.svg?branch=master)
 
 #### Table of Contents
 
@@ -6,7 +7,6 @@
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with tfenv](#setup)
     * [What tfenv affects](#what-tfenv-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with tfenv](#beginning-with-tfenv)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
@@ -15,65 +15,81 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module installs and configures [tfenv](https://github.com/kamatama41/tfenv)
+tool which manages terraform version
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+The tfenv module sets up from the github repo tfenv utility which manages
+terraform version. Module by default creates user and group jenkins by default.
+This behavior can be redefined.
 
 ## Setup
 
 ### What tfenv affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+By default:
+* Clone and install tfenv into */opt/tfenv* folder;
+* Create user *jenkins* and group *jenkins*
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
 
 ### Beginning with tfenv
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+```
+include '::tfenv'
+```
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+All options and configuration can be done through interacting with the parameters
+on the main ::tfenv class. The default parameters are defined in ::tfenv::params
+
+### tfenv class
+
+To start using tfenv one can use simple inclusion:
+
+```
+include '::tfenv'
+```
+
+If you don't need to create user you should define this explicitly, but please
+ensure that both  user `tfenv_user` and group `tfenv_group` exists, otherwise
+puppet run will fail:
+
+```
+class { '::tfenv':
+  manage_user  => false,
+  manage_group => false,
+  tfenv_user   => root,
+  tfenv_group  => root,
+}
+```
+
+You can also provide custom installation directory as well as
+[tfenv version](https://github.com/kamatama41/tfenv/releases):
+
+```
+class { '::tfenv':
+  install_dir    => '/home/jenkins/tfenv',
+  tfenv_revision => 'v0.5.1',
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+## Classes
+
+* tfenv: Main class for installation and configuration.
+* tfenv::params: Different configuration data for module.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Tested and work on:
+* Ubuntu 14.04
+* Ubuntu 16.04
+* Debian Jessie
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+Contributions will be gratefully accepted. All you pull requests should be done
+in separate branch, e.g. `feature_abc`, `fix_version_issue`, etc.
