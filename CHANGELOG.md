@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.2.0](https://github.com/SergK/puppet-tfenv/tree/0.2.0) (2017-08-10)
+[Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.1.1...0.2.0)
+
+**Implemented enhancements:**
+
+- Run beaker tests under CentOS platform as well [\#5](https://github.com/SergK/puppet-tfenv/pull/5) ([SergK](https://github.com/SergK))
+- Add defined type ::tfenv:terraform [\#4](https://github.com/SergK/puppet-tfenv/pull/4) ([SergK](https://github.com/SergK))
+
 ## [0.1.1](https://github.com/SergK/puppet-tfenv/tree/0.1.1) (2017-08-09)
 [Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.1.0...0.1.1)
 
