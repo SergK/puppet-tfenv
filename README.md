@@ -1,7 +1,7 @@
 # tfenv
-![https://travis-ci.org/SergK/puppet-tfenv.svg?branch=master](https://travis-ci.org/SergK/puppet-tfenv.svg?branch=master)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/SergK/tfenv.svg)](https://forge.puppetlabs.com/SergK/tfenv) [![Github Tag](https://img.shields.io/github/tag/SergK/puppet-tfenv.svg)](https://github.com/SergK/puppet-tfenv) [![Build Status](https://travis-ci.org/SergK/puppet-tfenv.svg?branch=master)](https://travis-ci.org/SergK/puppet-tfenv) [![Coverage Status](https://coveralls.io/repos/github/SergK/puppet-tfenv/badge.svg?branch=master)](https://coveralls.io/github/SergK/puppet-tfenv?branch=master) [![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/SergK/tfenv.svg)](https://forge.puppetlabs.com/SergK/tfenv)
 
-#### Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
