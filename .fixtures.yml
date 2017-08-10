@@ -2,4 +2,4 @@ fixtures:
   repositories:
     vcsrepo: https://github.com/puppetlabs/puppetlabs-vcsrepo
   symlinks:
-    prometheus: "#{source_dir}"
+    tfenv: "#{source_dir}"
