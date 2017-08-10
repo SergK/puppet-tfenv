@@ -1,6 +1,6 @@
 ---
 CONFIG:
-  log_level: notice
+  log_level: debug
   type: aio
 HOSTS:
   ubuntu1404:

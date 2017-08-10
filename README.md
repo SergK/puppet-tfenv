@@ -103,6 +103,7 @@ $terraform_versions = ['0.9.8', '0.9.9', '0.10.0']
 ## Limitations
 
 Tested and work on:
+* CentOS 7
 * Ubuntu 14.04
 * Ubuntu 16.04
 * Debian Jessie

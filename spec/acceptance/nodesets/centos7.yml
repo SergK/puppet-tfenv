@@ -1,0 +1,15 @@
+---
+CONFIG:
+  log_level: debug
+  type: aio
+HOSTS:
+  centos-7-x64:
+    default_apply_opts:
+      order: random
+      strict_variables: ~
+    docker_cmd: '["/usr/sbin/init"]'
+    hypervisor: docker
+    image: centos:7
+    platform: el-7-x86_64
+    roles:
+      - tfenv
