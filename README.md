@@ -21,8 +21,8 @@ tool which manages terraform version
 ## Module Description
 
 The tfenv module sets up from the github repo tfenv utility which manages
-terraform version. Module by default creates user and group jenkins by default.
-This behavior can be redefined.
+terraform version. Module creates user and group `jenkins` by default.
+This behavior can be changed.
 
 ## Setup
 
@@ -75,12 +75,30 @@ class { '::tfenv':
 }
 ```
 
+### tfenv::terraform
+
+If you want to install several versions of terraform you can use
+`tfenv::terraform`, e.g. install terraform versions '0.9.8', '0.9.9', '0.10.0':
+
+```
+include ::tfenv
+
+$terraform_versions = ['0.9.8', '0.9.9', '0.10.0']
+
+::tfenv::terraform { $terraform_versions: }
+
+```
+
 ## Reference
 
 ## Classes
 
-* tfenv: Main class for installation and configuration.
-* tfenv::params: Different configuration data for module.
+* tfenv - Main class for installation and configuration.
+* tfenv::params - Different configuration data for module.
+
+## Defined resource
+
+* tfenv::terraform - install required version of terraform using tfenv tool
 
 ## Limitations
 
