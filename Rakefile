@@ -6,7 +6,7 @@ PuppetLint.configuration.fail_on_warnings = true
 
 GitHubChangelogGenerator::RakeTask.new :changelog do |config|
   config.since_tag = '0.0.1'
-  config.future_release = '0.2.0'
+  config.future_release = '0.2.1'
   config.user = 'SergK'
   config.project = 'puppet-tfenv'
 end

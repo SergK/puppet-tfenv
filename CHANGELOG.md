@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.2.1](https://github.com/SergK/puppet-tfenv/tree/0.2.1) (2017-08-11)
+[Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.2.0...0.2.1)
+
+**Merged pull requests:**
+
+- Fix possible package installation conflict [\#8](https://github.com/SergK/puppet-tfenv/pull/8) ([morkot](https://github.com/morkot))
+- Fix typo in fixtures [\#7](https://github.com/SergK/puppet-tfenv/pull/7) ([SergK](https://github.com/SergK))
+
 ## [0.2.0](https://github.com/SergK/puppet-tfenv/tree/0.2.0) (2017-08-10)
 [Full Changelog](https://github.com/SergK/puppet-tfenv/compare/0.1.1...0.2.0)
 
