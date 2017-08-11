@@ -29,7 +29,8 @@ describe 'tfenv::terraform', type: :define do
       is_expected.to contain_exec('Install terraform version 0.10.0').with(
         'command' => 'tfenv install 0.10.0',
         'path'    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-        'unless'  => 'test -d /opt/tfenv2/versions/0.10.0'
+        'unless'  => 'test -d /opt/tfenv2/versions/0.10.0',
+        'require' => 'Class[Tfenv]'
       )
     }
   end

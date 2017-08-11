@@ -13,5 +13,6 @@ define tfenv::terraform (
     command => "tfenv install ${version}",
     path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
     unless  => "test -d ${install_path}/versions/${version}",
+    require => Class['tfenv'],
   }
 }
