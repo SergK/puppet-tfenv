@@ -1,5 +1,6 @@
 fixtures:
   repositories:
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
     vcsrepo: https://github.com/puppetlabs/puppetlabs-vcsrepo
   symlinks:
     tfenv: "#{source_dir}"

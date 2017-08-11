@@ -7,7 +7,7 @@ describe 'tfenv', type: :class do
 
     it {
       %w[git unzip].each do |fn|
-        is_expected.to contain_package(fn).with('ensure' => 'latest')
+        is_expected.to contain_package(fn).with('ensure' => 'present')
       end
     }
   end

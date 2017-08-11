@@ -15,9 +15,7 @@ class tfenv(
     unzip
   ]
 
-  package { $packages:
-    ensure => latest,
-  }
+  ensure_packages($packages, {'ensure' => 'present'})
 
   if $manage_user {
     user { $tfenv_user:

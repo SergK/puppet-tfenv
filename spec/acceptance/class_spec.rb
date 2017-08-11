@@ -4,8 +4,16 @@ describe 'tfenv class' do
   context 'default class inclusion' do
     it 'should work with no errors' do
       pp = <<-EOS
-        class { '::tfenv': }
+        $packages = [
+          'git',
+          'unzip'
+        ]
 
+        package { $packages:
+          ensure  => installed
+        }
+
+        class { '::tfenv': }
       EOS
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
