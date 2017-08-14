@@ -30,7 +30,20 @@ describe 'tfenv::terraform', type: :define do
         'command' => 'tfenv install 0.10.0',
         'path'    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
         'unless'  => 'test -d /opt/tfenv2/versions/0.10.0',
-        'require' => 'Class[Tfenv]'
+        'require' => 'File[/usr/local/bin/tfenv]'
+      )
+    }
+  end
+
+  context 'check with installing version 0.9.11 as the default one' do
+    let(:title) { '0.9.11' }
+
+    it {
+      is_expected.to contain_exec('Install terraform version 0.9.11').with(
+        'command' => 'tfenv install 0.9.11',
+        'path'    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+        'unless'  => 'test -d /opt/tfenv2/versions/0.9.11',
+        'require' => 'File[/usr/local/bin/tfenv]'
       )
     }
   end

@@ -84,3 +84,25 @@ describe 'run tests for tfenv' do
     end
   end
 end
+
+describe 'install tfenv with default terraform version 0.9.11' do
+  context 'install tfenv with terraform 0.9.11' do
+    it 'should work with no errors' do
+      shell('rm -rf /opt/tfenv')
+      shell('rm -rf /usr/local/bin/t*')
+      pp = <<-EOS
+        class { '::tfenv':
+          default_terraform_version => '0.9.11'
+        }
+      EOS
+
+      # Run it twice and test for idempotency
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
+    end
+
+    describe file('/opt/tfenv/version') do
+      it { is_expected.to contain '0.9.11' }
+    end
+  end
+end

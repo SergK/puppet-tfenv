@@ -74,4 +74,22 @@ Package[unzip]{:name=>\"unzip\"}]"
       )
     }
   end
+
+  context 'with installing default terraform version' do
+    let(:params) { { default_terraform_version: '0.9.11' } }
+
+    it {
+      is_expected.to contain_tfenv__terraform('0.9.11')
+    }
+
+    it {
+      is_expected.to contain_exec('Set default terraform version to 0.9.11')
+        .with(
+          'command'     => 'tfenv use 0.9.11',
+          'path'        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+          'unless'      => 'grep 0.9.11 /opt/tfenv/version',
+          'refreshonly' => 'true'
+        )
+    }
+  end
 end

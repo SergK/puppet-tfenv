@@ -1,13 +1,14 @@
 # == Class: tfenv
 #
 class tfenv(
-  $install_dir          = $::tfenv::params::install_dir,
-  $tfenv_git_repo       = $::tfenv::params::tfenv_git_repo,
-  $tfenv_revision       = $::tfenv::params::tfenv_revision,
-  $tfenv_user           = $::tfenv::params::tfenv_user,
-  $tfenv_group          = $::tfenv::params::tfenv_group,
-  Boolean $manage_user  = true,
-  Boolean $manage_group = true,
+  $default_terraform_version = undef,
+  $install_dir               = $::tfenv::params::install_dir,
+  $tfenv_git_repo            = $::tfenv::params::tfenv_git_repo,
+  $tfenv_revision            = $::tfenv::params::tfenv_revision,
+  $tfenv_user                = $::tfenv::params::tfenv_user,
+  $tfenv_group               = $::tfenv::params::tfenv_group,
+  Boolean $manage_user       = true,
+  Boolean $manage_group      = true,
 ) inherits tfenv::params{
 
   $packages = [
@@ -62,4 +63,15 @@ class tfenv(
     require => Vcsrepo[$install_dir],
   }
 
+  if $default_terraform_version != undef {
+    # Let's install and set default version for terraform
+    ::tfenv::terraform { $default_terraform_version: }
+
+    exec { "Set default terraform version to ${default_terraform_version}":
+      command     => "tfenv use ${default_terraform_version}",
+      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      unless      => "grep ${default_terraform_version} ${install_dir}/version",
+      refreshonly => true,
+    }
+  }
 }
