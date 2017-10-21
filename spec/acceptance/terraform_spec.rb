@@ -4,7 +4,7 @@ describe 'tfenv::terraform class' do
   terraform_versions = %w[0.9.10 0.9.9 0.9.8 0.9.7]
   context 'default terraform config' do
     it 'should work with no errors' do
-      pp = <<-EOS
+      pp = <<-PP
         class { '::tfenv':
           install_dir => '/opt/tfenv2'
         }
@@ -13,7 +13,7 @@ describe 'tfenv::terraform class' do
 
         ::tfenv::terraform { $terraform_versions: }
 
-      EOS
+      PP
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)

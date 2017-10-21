@@ -3,7 +3,7 @@ require 'spec_helper_acceptance'
 describe 'tfenv class' do
   context 'default class inclusion' do
     it 'should work with no errors' do
-      pp = <<-EOS
+      pp = <<-PP
         $packages = [
           'git',
           'unzip'
@@ -14,7 +14,7 @@ describe 'tfenv class' do
         }
 
         class { '::tfenv': }
-      EOS
+      PP
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
@@ -36,7 +36,7 @@ describe 'tfenv class with custom settings' do
     it 'should work with no errors' do
       shell('rm -rf /opt/tfenv')
       shell('rm -rf /usr/local/bin/t*')
-      pp = <<-EOS
+      pp = <<-PP
         class { '::tfenv':
           manage_user  => true,
           manage_group => false,
@@ -44,7 +44,7 @@ describe 'tfenv class with custom settings' do
           tfenv_group  => root,
         }
 
-      EOS
+      PP
 
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
@@ -90,11 +90,11 @@ describe 'install tfenv with default terraform version 0.9.11' do
     it 'should work with no errors' do
       shell('rm -rf /opt/tfenv')
       shell('rm -rf /usr/local/bin/t*')
-      pp = <<-EOS
+      pp = <<-PP
         class { '::tfenv':
           default_terraform_version => '0.9.11'
         }
-      EOS
+      PP
 
       # Run it twice and test for idempotency
       apply_manifest(pp, catch_failures: true)
